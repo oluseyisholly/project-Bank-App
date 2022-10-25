@@ -1,0 +1,26 @@
+.register-wrapper{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 0.4rem;
+    width: 30rem
+
+}
+
+.register-input{
+    border: none;
+    border-bottom: 1px solid lightgrey;
+    border-radius: 0px !important;
+}
+.register-btn{
+    width: 40%;
+    background-color: rgb(134, 215, 247);
+}
+.register-btn :focus{
+    border: none;
+    box-shadow: none;
+}
+
+@media (max-width: 766px){
+    .register-wrapper{
+        width: 25rem;
+    }
+}
