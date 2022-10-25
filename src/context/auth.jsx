@@ -10,7 +10,7 @@ if(getCurrentUser() !== null){
 const initialAuthState = {
     currentUser: getCurrentUser(),
     authentication: false,
-    balance: balance || ""
+    balance: ""
 }
 
 export const AuthContext = createContext({})
