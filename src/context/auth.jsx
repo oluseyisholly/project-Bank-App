@@ -2,8 +2,11 @@ import { createContext, useReducer } from "react";
 import { getCurrentUser } from "./LS_interact";
 import authReducer from "./reducer";
 
-const balance = getCurrentUser().balance
-console.log(balance);
+if(getCurrentUser() !== null){
+    const balance = getCurrentUser().balance
+    console.log(balance);
+}
+
 const initialAuthState = {
     currentUser: getCurrentUser(),
     authentication: false,

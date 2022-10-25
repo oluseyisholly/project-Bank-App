@@ -9,7 +9,7 @@ import CustomModal from "../component/customModal";
 
 const Dashboard = () =>{
     const {authState, authdispatch} = useContext(AuthContext);
-    const balance = authState.balance 
+    const balance = authState?.balance 
     console.log(authState);
     const name = `${authState.currentUser.firstName} ${authState.currentUser.lastName}`
 
