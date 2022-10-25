@@ -6,6 +6,7 @@ import Dashboard from './container/dashboard';
 import Login from './container/login';
 import Register from './container/Register';
 import { autoLogin } from './context/Logic';
+import routes from './routes';
 
 function App() {
 
@@ -14,10 +15,10 @@ function App() {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path='/' element={<Navigate to={autoLogin()}/>}/>
-            <Route path="login/" element={<Login/>} />
-            <Route path="/register" element={<Register/>} />
-            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path={routes.index} element={<Navigate to={autoLogin()}/>}/>
+            <Route path={routes.login} element={<Login/>} />
+            <Route path={routes.register} element={<Register/>} />
+            <Route path={routes.dashboard} element={<Dashboard/>} />
           </Routes>
         </Layout>
       </BrowserRouter>

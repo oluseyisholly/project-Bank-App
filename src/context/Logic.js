@@ -40,11 +40,23 @@ const autoLogin = () =>{
      return "/login"
 }
 
+const depositHandler = (payload) =>{
+    const currentUser = getCurrentUser();
+    //const allUsers = getAllUsers();
+    console.log(payload);
+    let balance = parseFloat(currentUser.balance)
+    balance += parseFloat(payload.amount);
+    console.log(payload.amount)
+    currentUser.balance = balance;
+    console.log(currentUser.balance)
+    setCurrentUser(currentUser);
+    return currentUser;
+}
 
 
 export  {registerUser};
 export {loginUser};
 export {autoLogin};
-//export {depositHandler};
+export {depositHandler};
 
  
