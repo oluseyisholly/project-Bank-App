@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import Input from "../component/input";
 import "../assets/style/login.css"
 import {Link, useNavigate} from "react-router-dom"
-import {git  loginUser } from "../context/Logic";
+import { loginUser } from "../context/Logic";
 import { AuthContext } from "../context/auth";
 import routes from "../routes";
 
