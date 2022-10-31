@@ -8,28 +8,31 @@ if(getCurrentUser() !== null){
     console.log(currentUser);
 }
 
-const initialAuthState = {
-    currentUser: currentUser,
-    authentication: false
-}
-
 export const AuthContext = createContext({})
 const AuthProvider = ({children}) =>{
-
-    const [authState, authdispatch]  = useReducer(authReducer, initialAuthState);
-
+    const [authState, authdispatch]  = useReducer(authReducer, {currentUser: currentUser, authentication: false});
     const count = useRef(0)
     useEffect(() => {
         count.current +=  1;
         
     })
-    console.log(count.current)
+
+    console.log(`AuthContext nummber of rendering ${count.current}`)
+
+    const logout =() =>{
+        console.log("......login out")
+        authdispatch({
+            type: "LOGOUT"
+        })
+    }
+    
 
     return (
         <AuthContext.Provider 
             value={{
                 authState,
-                authdispatch 
+                authdispatch,
+                logout 
             }}
         >
             {children}

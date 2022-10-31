@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import Input from "../component/input";
 import "../assets/style/login.css"
 import {Link, useNavigate} from "react-router-dom"
-import { loginUser } from "../context/Logic";
+import { Fetcher1, loginUser } from "../context/Logic";
 import { AuthContext } from "../context/auth";
 import routes from "../routes";
 
@@ -53,11 +53,13 @@ const Login = () =>{
                             onClick={(e) =>{
                                 e.preventDefault();
                                 let user = loginUser(data);
+
+                                //Fetcher1(data);
                                 if(user){
                                     authdispatch({
                                         type: "LOGIN",
                                         payload: {
-                                            currentUser: user
+                                            currentUser: user  
                                         }
                                     })
                                     console.log(authState);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext,  useState } from "react";
 import {Container, Col, Row, Button} from "react-bootstrap"
 import "../assets/style/dashboard.css"
 import CustomCard from "../component/customCard";
@@ -6,38 +6,44 @@ import { AuthContext } from "../context/auth";
 import images from "../img";
 import "../assets/style/dashboard.css"
 import CustomModal from "../component/customModal";
+import TransactionTable from "../component/customTable";
 
 const Dashboard = () =>{
     const {authState, authdispatch} = useContext(AuthContext);
     const balance = authState.currentUser.balance
     const name = `${authState.currentUser.firstName} ${authState.currentUser.lastName}`
-
-    const [show, setShow] = useState(false);
-    const [data, setData] = useState({
-        depositAmount: "",
-        description: ""
-    })
-
+    const transactionData = authState.currentUser.transactiondata
+    const [showDeposit, setShowDeposit] = useState(false);
+    const [showWithdraw, setShowWithdraw] = useState(false);
+    const [amountData, setAmountData] = useState("");
+    const [descriptionData, setDescriptionData] = useState("");
+    
+    const handleWithdraw = () =>{
+        authdispatch({
+            type: "WITHDRAW",
+            payload: {
+                amount: amountData || 0,
+                description: descriptionData
+            }
+        })
+        
+    }
     const handleDeposit = () =>{
         authdispatch({
             type: "DEPOSIT",
             payload: {
-                amount: data.depositAmount,
-                description: data.description
+                amount: amountData || 0,
+                description: descriptionData,
             }
         })
+        console.log(descriptionData, amountData)
     }
-    const count = useRef(0)
-    useEffect(() => {
-        count.current +=  1;
-        
-    })
-    console.log(count.current)
+
     return(
         <React.Fragment>
-            <Container as={"section"} fluid>
-                <Row style={{heigth: "100vh"}}>
-                    <Col  lg={2} style ={{background: "grey", height: "20rem"}}>
+            <Container  as={"section"} className={"bg-color "}  fluid>
+                <Row  style ={{height: "100vh"}}>
+                    <Col lg={2} className={"h-100"} style ={{background: "grey"}}>
                         <div className="d-flex flex-column align-items-center mx-3 pt-2">
                             <img className={"avatar-size"} src={images.avatar} alt="avatar of user"/>
                             <div>
@@ -46,24 +52,46 @@ const Dashboard = () =>{
                             </div>
                         </div>
                     </Col>
-                    <Col>
-                        <CustomCard cardClassName={"mt-3"}>
+                    <Col >
+                        <CustomCard cardClassName={"mt-3 box-shadow-general"}>
                             <h1 className="text-center">Current Balance: N{balance}</h1>
                         </CustomCard>
+                        <div className="box-shadow-general">
+                            <TransactionTable
+                                className={"overflow-scroll bg-white mt-5"}
+                                transactionData={transactionData}
+                            />
+                        </div>
                     </Col>
-                    <Col  lg={2} style ={{background: "blue"}}>
-                        
+                    <Col  lg={2} style ={{background: "blue", height: "100%"}}>
                         <div>
-                            <Button className={""} onClick={() => setShow(true)}>
+                            <Button className={"bgColor-dark"} onClick={() => setShowDeposit(true)}>
                                 Deposit
                             </Button>
                             <CustomModal
-                                title = "Make Your Deposits here"
-                                data = {data}
-                                setData = {setData}
-                                setShowModal = {setShow}
-                                show = {show}
+                                title = "Make Your Deposits"
+                                amountData = {amountData}
+                                descriptionData = {descriptionData}
+                                setAmountData = {setAmountData}
+                                setDescriptionData= {setDescriptionData}
+                                setShowModal = {setShowDeposit}
+                                show = {showDeposit}
                                 handleDeposit = {handleDeposit}
+                            />
+                        </div>
+                        <div>
+                            <Button className={""} onClick={() => setShowWithdraw(true)}>
+                                Withdraw
+                            </Button>
+                            <CustomModal
+                                title = "Make Your Deposits"
+                                amountData = {amountData}
+                                descriptionData = {descriptionData}
+                                setAmountData = {setAmountData}
+                                setDescriptionData= {setDescriptionData}
+                                setShowModal = {setShowWithdraw}
+                                show = {showWithdraw}
+                                handleDeposit = {handleWithdraw}
                             />
                         </div>
                     </Col>

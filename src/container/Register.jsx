@@ -4,7 +4,7 @@ import Input from "../component/input";
 import "../assets/style/register.css"
 import { registerUser } from "../context/Logic";
 import routes from "../routes";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 
 const Register = () =>{
@@ -17,6 +17,7 @@ const Register = () =>{
         dateOfBirth: "",
         balance: ""
     });
+const navigate = useNavigate();
 
     //const RegisterData = () =>{
     //     set
@@ -138,8 +139,11 @@ const Register = () =>{
                                 e.preventDefault();
                                 console.log(data)
                                 let result = registerUser(data)
-                                if(result === false){
+                                if(!result){
                                     window.alert(`Email Address Already  exists, Try Another Email `);
+                                }
+                                else{
+                                    navigate(routes.login)
                                 }
                             }}
                         >   

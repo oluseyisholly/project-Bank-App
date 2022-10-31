@@ -1,7 +1,8 @@
-import { depositHandler } from "./Logic"
+import { depositHandler, withdrawHandler } from "./Logic"
 
 
 const authReducer = (state, action) =>{
+    let currentUser;
     switch(action.type){
         case "LOGIN":
             console.log('login');
@@ -9,15 +10,21 @@ const authReducer = (state, action) =>{
                 ...state, authentication: true, currentUser: action.payload.currentUser
             }
         case "DEPOSIT":
-            let currentUser = depositHandler(action.payload)
-            console.log( action.payload.amount)
+            currentUser = depositHandler(action.payload, action.type)
+            console.log(currentUser)
             return {
                 ...state, currentUser
             }
-        case "WITHDRAW":    
+        case "WITHDRAW":   
+        console.log(action.payload) 
+            currentUser = withdrawHandler(action.payload, action.type)
             return {
-
-            } 
+                ...state, currentUser
+            }
+        case "LOGOUT" :
+            return{
+                ...state, authentication: false
+            }
         default:
             return {
                 ...state

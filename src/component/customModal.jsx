@@ -5,14 +5,16 @@ import Input from "./input"
 
  const CustomModal = ({
     title,
-    data,
-    setData,
+    amountData,
+    descriptionData,
+    setAmountData,
+    setDescriptionData,
     show = false,
     setShowModal,
     handleDeposit,
 }) =>{
     return(
-        <Modal onHide={() => setShowModal(false)} show = {show} >
+        <Modal className="w-75" onHide={() => setShowModal(false)} show = {show} >
             <Modal.Header>
                 <Modal.Title>
                     {title}
@@ -21,23 +23,17 @@ import Input from "./input"
             <Modal.Body>
                 <Input
                     placeholder={"Amount"}
-                    value = {data.depositAmount}
+                    value = {amountData}
                     type = {"number"}
-                    onChange = {(depositAmount) => {
-                        setData({
-                            ...data,
-                            depositAmount
-                        });
+                    onChange = {(amountData) => {
+                        setAmountData(amountData);
                     }}
                 />
                 <Input
-                    placeHolder={"Description"}
-                    value = {data.description}
-                    onChange={(description) => {
-                        setData({
-                            ...data,
-                            description,
-                        });
+                    placeholder={"Description"}
+                    value = {descriptionData}
+                    onChange={(descriptionData) => {
+                        setDescriptionData(descriptionData);
                     }}
                 />
             </Modal.Body>
